@@ -1,28 +1,18 @@
 # Workflow que builda o projeto Next.js e publica no GitHub Pages.
 # Roda automaticamente em todo push pra branch `main`.
-#
-# Pra funcionar, precisa:
-#   1. No GitHub Settings → Pages → Source: trocar pra "GitHub Actions"
-#   2. Permissões abaixo (já configuradas no permissions:) precisam tar ativas
-#      Settings → Actions → General → Workflow permissions:
-#      "Read and write permissions"
 
 name: Deploy Next.js to GitHub Pages
 
 on:
-  # Roda automático ao push na main
   push:
     branches: [main]
-  # Também permite disparar manualmente pela aba Actions
   workflow_dispatch:
 
-# Permissões que o workflow precisa pra publicar
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Garante que só um deploy roda por vez
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -37,11 +27,10 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"
-          cache: "npm"
+          node-version: "22"
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
       - name: Build (Next.js static export)
         run: npm run build
