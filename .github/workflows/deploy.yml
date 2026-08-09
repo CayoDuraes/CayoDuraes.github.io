@@ -1,7 +1,7 @@
-# Workflow que builda o projeto Next.js e publica no GitHub Pages.
+# Builda o projeto React + Vite e publica no GitHub Pages.
 # Roda automaticamente em todo push pra branch `main`.
 
-name: Deploy Next.js to GitHub Pages
+name: Deploy Vite to GitHub Pages
 
 on:
   push:
@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build (Next.js static export)
+      - name: Build (Vite)
         run: npm run build
 
       - name: Setup Pages
@@ -41,7 +41,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./out
+          path: ./dist
 
   deploy:
     needs: build
